@@ -11,7 +11,8 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://192.168.0.167:8081",
   "https://hackathon-platform-h2h.vercel.app",
-  "https://hackathon.skillmingle.in"
+  "https://hackathon.skillmingle.in",
+  "https://adminh2h.skillmingle.in",
   // Add more origins as needed
 ];
 
