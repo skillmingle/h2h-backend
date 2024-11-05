@@ -42,12 +42,11 @@ router.post("/create-project", async (req, res) => {
   }
 });
 
-router.get("/user-projects/:userId", async (req, res) => {
+router.get("/user-projects", async (req, res) => {
     try {
-      const { userId } = req.params;
   
       // Fetch the user along with their projects
-      const user = await User.findById(userId).populate('projects');
+      const user = await User.findById({}).populate('projects');
   
       if (!user) {
         return res.status(404).json({ success: false, message: "User not found" });
