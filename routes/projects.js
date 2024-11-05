@@ -46,7 +46,7 @@ router.get("/user-projects", async (req, res) => {
     try {
   
       // Fetch the user along with their projects
-      const user = await User.findById({}).populate('projects');
+      const user = await Project.find({});
   
       if (!user) {
         return res.status(404).json({ success: false, message: "User not found" });
@@ -54,7 +54,7 @@ router.get("/user-projects", async (req, res) => {
   
       res.status(200).json({
         success: true,
-        projects: user.projects,
+        projects: user,
       });
     } catch (err) {
       console.error(err);
