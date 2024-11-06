@@ -58,7 +58,27 @@ router.post("/chat", async (req, res) => {
   }
 });
 
-module.exports = router;
 
+// Delete a message by ID in a specific chat
+router.delete("/chat/:teamId/message/:messageId", async (req, res) => {
+  const { teamId, messageId } = req.params;
+
+  try {
+    const chat = await Chat.findOneAndUpdate(
+      { teamId },
+      { $pull: { messages: { _id: messageId } } }, // Remove message by ID from messages array
+      { new: true }
+    );
+
+    if (!chat) {
+      return res.status(404).json({ success: false, message: "Chat or message not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Message deleted successfully", chat });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    res.status(500).json({ success: false, message: "Error deleting message" });
+  }
+});
 
 module.exports = router;

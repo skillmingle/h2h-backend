@@ -7,6 +7,7 @@ const ChatSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  
   messages: [{
     senderId: {
         type: mongoose.Schema.Types.ObjectId,

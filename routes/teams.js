@@ -132,6 +132,30 @@ router.post("/teams/:teamId/addMember", async (req, res) => {
     }
   });
   
+
+
+  // Update messageSeen status for a team
+router.put("/team/:teamId/message-seen", async (req, res) => {
+  const { teamId } = req.params;
+  const { messageSeen } = req.body;
+
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(
+      teamId,
+      { messageSeen },
+      { new: true }
+    );
+
+    if (!updatedTeam) {
+      return res.status(404).json({ success: false, message: "Team not found" });
+    }
+
+    res.status(200).json({ success: true, team: updatedTeam });
+  } catch (error) {
+    console.error("Error updating messageSeen:", error);
+    res.status(500).json({ success: false, message: "Error updating messageSeen" });
+  }
+});
   
 
 

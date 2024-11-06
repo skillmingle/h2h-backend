@@ -18,6 +18,7 @@ const teamSchema = new Schema({
     }],
     createdAt: { type: Date, default: Date.now },
     status: { type: String, enum: ['active', 'completed'], default: 'active' }, // optional status field
+    messageSeen:{type:Boolean,default:false}
   });
   
   const Team = mongoose.model('Team', teamSchema);
