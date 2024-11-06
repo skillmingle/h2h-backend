@@ -34,13 +34,14 @@ router.post("/activity-log", async (req, res) => {
 // Create Notice API
 router.post("/notices", async (req, res) => {
   try {
-    const { title, description, selectedTeams, projectId, sendToAll } = req.body;
+    const { title, description, selectedTeams, projectId, sendToAll, userId } = req.body;
 
     // Prepare the notice object
     const newNotice = {
       title,
       description,
       date: new Date(),
+      userId
     };
 
     // Fetch teams based on selection
