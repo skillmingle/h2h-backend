@@ -157,8 +157,42 @@ router.put("/team/:teamId/message-seen", async (req, res) => {
   }
 });
   
+// 
+const sendTeamEmails = require("../utils/sendTeamEmails");
+
+router.post("/send-team", async (req, res) => {
+  const { teamId, email, random_string } = req.body;
+  try {
+    // Check if the email is either sachin@gmail.com or sahil@gmail.com
+    if (email !== 'sachin@gmail.com' && email !== 'sahil@gmail.com') {
+      return res.status(400);  // 400 for bad request
+    }
+
+    const team = await Team.findById(teamId).populate("members", "email name");
+    if (!team) {
+      return res.status(404).json({ message: 'Team not found' });
+    }
+
+    // Collect emails from team members
+    const emailList = team.members.map((member) => ({
+      email: member.email,
+      name: member.name,
+    }));
+
+    // Call utility function to send emails using Brevo
+    const emailResult = await sendTeamEmails(emailList, random_string);
+    if (emailResult.success) {
+      return res.status(200);
+    } else {
+      return res.status(500);
+    }
+  } catch (error) {
+    console.error("Error sending team emails:", error);
+    return res.status(500);
+  }
+});
 
 
-  
+
 
 module.exports = router;
