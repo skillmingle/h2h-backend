@@ -75,17 +75,17 @@ router.put("/timelines/:timelineId", async (req, res) => {
 });
 
 // Delete an timeline by ID
-router.delete("/timelines/:timelineId", async (req, res) => {
-  try {
-    const { timelineId } = req.params;
+// router.delete("/timelines/:timelineId", async (req, res) => {
+//   try {
+//     const { timelineId } = req.params;
 
-    await Timeline.findByIdAndDelete(timelineId);
-    res.status(200).json({ success: true, message: "Timeline deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting timeline:", error);
-    res.status(500).json({ success: false, message: "Error deleting timeline" });
-  }
-});
+//     await Timeline.findByIdAndDelete(timelineId);
+//     res.status(200).json({ success: true, message: "Timeline deleted successfully" });
+//   } catch (error) {
+//     console.error("Error deleting timeline:", error);
+//     res.status(500).json({ success: false, message: "Error deleting timeline" });
+//   }
+// });
 
   // Route to get all members of a specific team
   router.get("/teams/:teamId/members", async (req, res) => {
@@ -111,6 +111,27 @@ router.delete("/timelines/:timelineId", async (req, res) => {
     } catch (error) {
       console.error("Error fetching team members:", error);
       res.status(500).json({ success: false, message: "Error fetching team members" });
+    }
+  });
+
+
+  router.delete("/timeline2/:eventId", async (req, res) => {
+    try {
+      const { eventId } = req.params;
+      const {id,name,teamId}=req.body;
+      await Timeline.findByIdAndDelete(eventId);
+      await logActivity(
+        teamId,
+        id,
+        name,
+        "DELETE",
+        `Deleted a timeleine`
+      );
+      res.status(200).json({ success: true, message: "Event deleted successfully" });
+  
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      res.status(500).json({ success: false, message: "Error deleting event" });
     }
   });
   
