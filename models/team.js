@@ -5,7 +5,10 @@ const teamSchema = new Schema({
     projectId: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
     teamName: { type: String, required: true },
     driveFolderId: { type: String, required: true },
-    githubRepo: { type: String},
+    githubRepo: {
+      userName:{type:String},
+      repo:{type:String}
+    },
     mentor1: { type:String, required: true, default:'sachin@skillmingle'},
     mentor2: { type:String, required: true, default:'sahil@skillmingle' },
     leaderUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

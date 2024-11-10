@@ -9,7 +9,6 @@ const cors = require("cors");
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "http://192.168.0.167:8081",
   "https://hackathon-platform-h2h.vercel.app",
   "https://hackathon.skillmingle.in",
   "https://adminh2h.skillmingle.in",
@@ -38,6 +37,7 @@ app.use("/api", require("./routes/task"));
 app.use("/api", require("./routes/event"));
 app.use("/api", require("./routes/timeline"));
 app.use("/api", require("./routes/chat"));
+app.use("/api", require("./routes/github"));
 
 
 // Define a test route
